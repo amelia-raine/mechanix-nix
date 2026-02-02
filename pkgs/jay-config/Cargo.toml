@@ -1,0 +1,10 @@
+[package]
+name = "mechanix-jay-config"
+version = "1.0.0"
+edition = "2024"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+jay-config = "1.9.0"
