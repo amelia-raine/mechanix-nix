@@ -21,6 +21,8 @@ nix-build '<nixpkgs/nixos>' -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/
 
 Once it's done it will print a path to the directory where the generated image is.
 
+The default password is "comet"
+
 ## Installing manually
 
 Instead of building a bootable image you may want to install Mechanix in an already existing NixOS installation (you probably want to do this in a VM and not in your personal computer).
