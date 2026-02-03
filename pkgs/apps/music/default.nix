@@ -14,7 +14,7 @@ flutter332.buildFlutterApplication {
 	pubspecLock = lib.importJSON ./pubspec.lock.json;
 
 	gitHashes = {
-		widgets = "sha256-6HCbCEIFS37aXMYWUAvkDow8tJ5v8yys3iewm50hWNU=";
+		widgets = "sha256-5qEPc6qiF+kCbjLrufkmYvMa9wknNNgmFNSCWljPKzo=";
 		flutter_media_metadata = "sha256-GmmqWuvcgrSf+PqwYNQS2Rgxv+56ZKbOFADUebWNNFk=";
 	};
 
