@@ -16,7 +16,7 @@ In order to build a bootable image you will need the [Nix package manager, which
 
 Then clone this repository, navigate to its root directory and run the following command:
 ```bash
-nix-build '<nixpkgs/nixos>' -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/nixos-25.11.tar.gz -I nixos-config=images/qcow -A config.system.build.image
+nix-build '<nixpkgs/nixos>' -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/nixos-25.11.tar.gz -I nixos-config=images/generic -A config.system.build.image
 ```
 
 Once it's done it will print a path to the directory where the generated image is.

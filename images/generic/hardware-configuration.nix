@@ -14,4 +14,6 @@
 			fsType = "ext4";
 		};
 	};
+
+	system.nixos.tags = [ "generic" ];
 }
