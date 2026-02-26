@@ -1,4 +1,8 @@
-import (builtins.fetchTarball {
-	url = "https://github.com/amelia-raine/mechanix-nix/archive/c1994dae0ee9178992bc074041b89c30e7df7d12.tar.gz";
-	sha256 = "1mm081s19c2v9c4ghp6y11wrs7ab3n783ihh6znbg2jxihy4hdb8";
-})
+rec {
+	src = builtins.fetchTarball {
+		url = "https://github.com/amelia-raine/mechanix-nix/archive/36deef567140e35204c721546fb6df84effa3199.tar.gz";
+		sha256 = "1wsgi18dwi9514j39rrm8nlarq2b3nl2r296snk2xggbybjb7c01";
+	};
+	module = import src;
+	pkgs = import "${src}/pkgs";
+}

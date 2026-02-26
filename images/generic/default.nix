@@ -1,11 +1,11 @@
-{ config, lib, pkgs, ... }:
+{ pkgs, lib, config, ... }:
 let
-	commonConfig = import ../common/configuration.nix { inherit pkgs; };
+	commonConfig = import ../common/configuration.nix { inherit pkgs lib config; };
 	makeDiskImage = import <nixpkgs/nixos/lib/make-disk-image.nix> {
-		inherit config lib pkgs;
+		inherit pkgs lib config;
+		baseName = "nixos-mechanix-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}";
 		diskSize = 32768;
 		format = "qcow2-compressed";
-		baseName = "nixos-mechanix-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}";
 		contents = [
 			{
 				source = ../common/configuration.nix;
@@ -36,7 +36,7 @@ lib.recursiveUpdate
 	{
 		imports = [
 			./hardware-configuration.nix
-			../common/mechanix.nix
+			(import ../common/mechanix.nix).module
 		];
 
 		system.build.image = makeDiskImage;

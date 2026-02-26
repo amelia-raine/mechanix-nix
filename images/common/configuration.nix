@@ -1,8 +1,8 @@
-{ ... }:
+{ pkgs, lib, config, ... }:
 {
 	imports = [
 		./hardware-configuration.nix
-		./mechanix.nix
+		(import ./mechanix.nix).module
 	];
 
 	networking.hostName = "comet";
