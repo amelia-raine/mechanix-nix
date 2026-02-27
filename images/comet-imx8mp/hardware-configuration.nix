@@ -26,10 +26,13 @@ in
 		};
 	};
 
-	hardware.deviceTree = {
-		enable = true;
-		filter = "imx8mp-*.dtb";
-		name = "freescale/imx8mp-mecha-comet.dtb";
+	hardware = {
+		deviceTree = {
+			enable = true;
+			filter = "imx8mp-*.dtb";
+			name = "freescale/imx8mp-mecha-comet.dtb";
+		};
+		firmware = [ mechanix-pkgs.hardware.iw61x-firmware ];
 	};
 
 	system.nixos.tags = [ "comet-imx8mp" ];
