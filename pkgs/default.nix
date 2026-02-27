@@ -15,5 +15,6 @@ rec {
 	apps = import ./apps { inherit pkgs mechanixSrc; };
 	jay = pkgs.callPackage ./jay.nix { inherit jay-config; };
 	jay-config = pkgs.callPackage ./jay-config {};
+	phoc = pkgs.callPackage ./phoc.nix {};
 	hardware = import ./hardware pkgs;
 }

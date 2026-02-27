@@ -5,6 +5,7 @@ let
 	mechanix-pkgs = import ./pkgs { inherit pkgs; };
 	mechanix-gui = mechanix-pkgs.gui;
 	mechanix-apps = mechanix-pkgs.apps;
+	mechanix-phoc = mechanix-pkgs.phoc;
 	wrapJay = jay: binName:
 		pkgs.runCommandLocal binName
 			{ nativeBuildInputs = [ pkgs.makeBinaryWrapper ]; }
@@ -35,6 +36,7 @@ in
 				mechanix-gui
 				jay
 				mechanix-jay
+				mechanix-phoc
 				bemenu
 				alacritty
 			] ++ lib.attrValues mechanix-apps;
@@ -57,6 +59,7 @@ in
 				enable = true;
 				wayland.enable = true;
 			};
+			defaultSession = "jay-mechanix-session";
 			sessionPackages = [
 				(
 					(pkgs.makeDesktopItem {
@@ -78,6 +81,17 @@ in
 						type = "Application";
 					}).overrideAttrs {
 						passthru.providedSessions = [ "jay-session" ];
+					}
+				)
+				(
+					(pkgs.makeDesktopItem {
+						destination = "/share/wayland-sessions";
+						name = "phoc-session";
+						desktopName = "Phoc";
+						exec = "phoc -E mechanix-launcher";
+						type = "Application";
+					}).overrideAttrs {
+						passthru.providedSessions = [ "phoc-session" ];
 					}
 				)
 			];
