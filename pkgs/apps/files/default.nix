@@ -1,5 +1,6 @@
 {
 	lib,
+	stdenv,
 	flutter332,
 	alsa-lib,
 	mpv-unwrapped,
@@ -35,6 +36,12 @@
 	copyDesktopItems,
 	mechanixSrc
 }:
+let
+	flutterArch = {
+		"aarch64-linux" = "arm64";
+		"x86_64-linux" = "x64";
+	}.${stdenv.hostPlatform.system};
+in
 flutter332.buildFlutterApplication {
 	pname = "mechanix-files";
 	version = "0.0.8";
@@ -107,8 +114,8 @@ flutter332.buildFlutterApplication {
 
 	preInstall = ''
 		patchelf \
-			--set-rpath "$(patchelf --print-rpath build/linux/x64/release/bundle/lib/libpdfrx.so | grep -Po '(/nix/store/[^\/]+/lib:?)+'):$out/app/mechanix-files/lib" \
-			build/linux/x64/release/bundle/lib/libpdfrx.so
+			--set-rpath "$(patchelf --print-rpath build/linux/${flutterArch}/release/bundle/lib/libpdfrx.so | grep -Po '(/nix/store/[^\/]+/lib:?)+'):$out/app/mechanix-files/lib" \
+			build/linux/${flutterArch}/release/bundle/lib/libpdfrx.so
 	'';
 
 	postInstall = ''
