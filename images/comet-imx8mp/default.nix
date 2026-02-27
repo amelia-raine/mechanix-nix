@@ -4,7 +4,6 @@ let
 	makeDiskImage = import <nixpkgs/nixos/lib/make-disk-image.nix> {
 		inherit pkgs lib config;
 		baseName = "nixos-mechanix-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}";
-		diskSize = 4096;
 		format = "raw";
 		partitionTableType = "efi";
 		contents = [
