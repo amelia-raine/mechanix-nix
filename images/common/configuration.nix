@@ -28,5 +28,8 @@
 		algorithm = "lz4";
 	};
 
+	# WiFi firmware is unfree
+	nixpkgs.config.allowUnfree = true;
+
 	system.stateVersion = "25.11";
 }
