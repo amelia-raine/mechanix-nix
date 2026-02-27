@@ -1,7 +1,7 @@
 rec {
 	src = builtins.fetchTarball {
-		url = "https://github.com/amelia-raine/mechanix-nix/archive/fbf59d5aa5ae4ca4e236449f64a587387ea6c619.tar.gz";
-		sha256 = "0cwshv5km6rpkapcgwhqjda5d8jnsrqbj4b8qa0vw6w0xh60ymj7";
+		url = "https://github.com/amelia-raine/mechanix-nix/archive/4c18094e3c70bcb9ac68df986edb1ed5872b9b62.tar.gz";
+		sha256 = "0112rpvw91g4adpi8wbj1jqyj2ngibfaxrksyd538sbi6dak6ig7";
 	};
 	module = import src;
 	pkgs = import "${src}/pkgs";
