@@ -10,13 +10,18 @@ This repository contains:
 I don't have a Mecha Comet yet, so until then I can't finish and test this project.
 
 ## Building bootable images
-As of this writing you can't yet build a bootable image that runs on the real hardware, but you can build an image to test in a VM (I have only tested it in x86_64).
-
 In order to build a bootable image you will need the [Nix package manager, which you can install on any distro](https://nixos.org/download/), you don't need to use NixOS.
 
-Then clone this repository, navigate to its root directory and run the following command:
+Then clone this repository and navigate to its root directory.
+
+To build an image to test in a VM (I have only tested it in x86_64), run the following command:
 ```bash
 nix-build '<nixpkgs/nixos>' -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/nixos-25.11.tar.gz -I nixos-config=images/generic -A config.system.build.image
+```
+
+To build an image to run in a Mecha Comet (I.MX 8M Plus), run the following command:
+```bash
+nix-build '<nixpkgs/nixos>' -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/nixos-25.11.tar.gz -I nixos-config=images/comet-imx8mp -A config.system.build.image
 ```
 
 Once it's done it will print a path to the directory where the generated image is.
