@@ -1,22 +1,16 @@
 {
-	lib,
-	flutter332,
-	libmediainfo,
 	mpv-unwrapped,
 	makeDesktopItem,
 	copyDesktopItems,
-	mechanixSrc
+	mechanixSrc,
+	buildApplication
 }:
-flutter332.buildFlutterApplication {
+buildApplication {
 	pname = "mechanix-music";
 	version = "0.0.2";
 	src = "${mechanixSrc}/apps/music";
-	pubspecLock = lib.importJSON ./pubspec.lock.json;
-
-	gitHashes = {
-		widgets = "sha256-5qEPc6qiF+kCbjLrufkmYvMa9wknNNgmFNSCWljPKzo=";
-		flutter_media_metadata = "sha256-GmmqWuvcgrSf+PqwYNQS2Rgxv+56ZKbOFADUebWNNFk=";
-	};
+	pubspecLock = ./pubspec.lock;
+	depsHash = "sha256-s1DdxQif3IdJqFmB5t76yopdXLWNstnm7RCQDz5YbYo=";
 
 	desktopItems = [
 		(makeDesktopItem {
@@ -35,19 +29,6 @@ flutter332.buildFlutterApplication {
 	nativeBuildInputs = [
 		copyDesktopItems
 	];
-
-	buildInputs = [
-		libmediainfo
-	];
-
-	patchPhase = ''
-		cp -r ${../common/linux} linux
-		chmod +w -R linux
-		substituteInPlace linux/CMakeLists.txt \
-			--replace-fail '@name@' music
-		substituteInPlace linux/runner/my_application.cc \
-			--replace-fail '@prettyName@' Music
-	'';
 
 	postInstall = ''
 		mkdir -p $out/share/icons/hicolor/48x48/apps

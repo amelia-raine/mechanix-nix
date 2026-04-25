@@ -1,20 +1,16 @@
 {
-	lib,
-	flutter332,
 	libpulseaudio,
 	makeDesktopItem,
 	copyDesktopItems,
-	mechanixSrc
+	mechanixSrc,
+	buildApplication
 }:
-flutter332.buildFlutterApplication {
+buildApplication {
 	pname = "mechanix-settings";
 	version = "0.0.3";
 	src = "${mechanixSrc}/apps/settings";
-	pubspecLock = lib.importJSON ./pubspec.lock.json;
-
-	gitHashes = {
-		widgets = "sha256-5qEPc6qiF+kCbjLrufkmYvMa9wknNNgmFNSCWljPKzo=";
-	};
+	pubspecLock = ./pubspec.lock;
+	depsHash = "sha256-pYIxJIV0c6zMBytszIjmtt+5doAxRpGg+nz8rCi4kF0=";
 
 	desktopItems = [
 		(makeDesktopItem {
@@ -34,14 +30,7 @@ flutter332.buildFlutterApplication {
 		copyDesktopItems
 	];
 
-	patchPhase = ''
-		cp -r ${../common/linux} linux
-		chmod +w -R linux
-		substituteInPlace linux/CMakeLists.txt \
-			--replace-fail '@name@' settings
-		substituteInPlace linux/runner/my_application.cc \
-			--replace-fail '@prettyName@' Settings
-
+	postPatch = ''
 		substituteInPlace lib/load_settings.dart \
 			--replace-fail /usr/share/backgrounds/lock-screen $out/share/assets/images
 	'';

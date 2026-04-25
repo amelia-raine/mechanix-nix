@@ -1,49 +1,17 @@
 {
-	lib,
-	flutter332,
-	alsa-lib,
+	pdfium-binaries,
 	mpv-unwrapped,
-	libass,
-	ffmpeg,
-	libplacebo,
-	libunwind,
-	shaderc,
-	vulkan-loader,
-	lcms,
-	libdovi,
-	libdvdnav,
-	libdvdread,
-	mujs,
-	libbluray,
-	lua,
-	rubberband,
-	libuchardet,
-	zimg,
-	openal,
-	pipewire,
-	libpulseaudio,
-	libcaca,
-	libdrm,
-	libdisplay-info,
-	libgbm,
-	libxscrnsaver,
-	libxpresent,
-	nv-codec-headers-11,
-	libva,
-	libvdpau,
 	makeDesktopItem,
 	copyDesktopItems,
-	mechanixSrc
+	mechanixSrc,
+	buildApplication
 }:
-flutter332.buildFlutterApplication {
+buildApplication {
 	pname = "mechanix-files";
 	version = "0.0.8";
 	src = "${mechanixSrc}/apps/files";
-	pubspecLock = lib.importJSON ./pubspec.lock.json;
-
-	gitHashes = {
-		widgets = "sha256-5qEPc6qiF+kCbjLrufkmYvMa9wknNNgmFNSCWljPKzo=";
-	};
+	pubspecLock = ./pubspec.lock;
+	depsHash = "sha256-RFiZJTVStXZWapS5WILVSRINrPopZKER34t1odJAolY=";
 
 	desktopItems = [
 		(makeDesktopItem {
@@ -63,56 +31,13 @@ flutter332.buildFlutterApplication {
 		copyDesktopItems
 	];
 
-	buildInputs = [
-		alsa-lib
-		mpv-unwrapped
-		libass
-		ffmpeg
-		libplacebo
-		libunwind
-		shaderc
-		vulkan-loader
-		lcms
-		libdovi
-		libdvdnav
-		libdvdread
-		mujs
-		libbluray
-		lua
-		rubberband
-		libuchardet
-		zimg
-		openal
-		pipewire
-		libpulseaudio
-		libcaca
-		libdrm
-		libdisplay-info
-		libgbm
-		libxscrnsaver
-		libxpresent
-		nv-codec-headers-11
-		libva
-		libvdpau
-	];
-
-	patchPhase = ''
-		cp -r ${../common/linux} linux
-		chmod +w -R linux
-		substituteInPlace linux/CMakeLists.txt \
-			--replace-fail '@name@' files
-		substituteInPlace linux/runner/my_application.cc \
-			--replace-fail '@prettyName@' Files
-	'';
-
-	preInstall = ''
-		patchelf \
-			--set-rpath "$(patchelf --print-rpath build/linux/x64/release/bundle/lib/libpdfrx.so | grep -Po '(/nix/store/[^\/]+/lib:?)+'):$out/app/mechanix-files/lib" \
-			build/linux/x64/release/bundle/lib/libpdfrx.so
-	'';
-
 	postInstall = ''
+		rm $out/bundle/lib/libpdfium.so
+		ln -s ${pdfium-binaries}/lib/libpdfium.so $out/bundle/lib/libpdfium.so
+
 		mkdir -p $out/share/icons/hicolor/48x48/apps
 		cp assets/mechanix_files.png $out/share/icons/hicolor/48x48/apps
 	'';
+
+	extraWrapProgramArgs = "--prefix LD_LIBRARY_PATH : ${mpv-unwrapped}/lib";
 }

@@ -17,20 +17,8 @@ do
 	then
 		continue
 	fi
-	lock_path=/tmp/mechanix-gui/apps/$name/pubspec.lock
-	fmm_version=$(yq '.packages.flutter_media_metadata.version' $lock_path)
-	if [ "$fmm_version" = "null" ]
-	then
-		yq --no-colors --output-format json $lock_path > $path"pubspec.lock.json"
-	else
-		if [ "$fmm_version" != "1.0.0+1" ]
-		then
-			echo "Unexpected flutter_media_metadata version found in $name app"
-			exit 1
-		fi
-		yq --no-colors --output-format json '.packages.flutter_media_metadata.source = "git" | .packages.flutter_media_metadata.description = {"path": ".", "ref": "c31041ac1ac8ed0580c0ac4c443dcefc2db49a61", "resolved-ref": "c31041ac1ac8ed0580c0ac4c443dcefc2db49a61", "url": "https://github.com/alexmercerind/flutter_media_metadata.git"}' $lock_path > $path"pubspec.lock.json"
-	fi
-	echo Wrote $path"pubspec.lock.json"
+	cp /tmp/mechanix-gui/apps/$name/pubspec.lock $path"pubspec.lock"
+	echo Wrote $path"pubspec.lock"
 done
 
 mv /tmp/mechanix-gui/{,original_}Cargo.toml

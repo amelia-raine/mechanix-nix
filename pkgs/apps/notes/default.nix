@@ -1,19 +1,15 @@
 {
-	lib,
-	flutter332,
 	makeDesktopItem,
 	copyDesktopItems,
-	mechanixSrc
+	mechanixSrc,
+	buildApplication
 }:
-flutter332.buildFlutterApplication {
+buildApplication {
 	pname = "mechanix-notes";
 	version = "0.0.4";
 	src = "${mechanixSrc}/apps/notes";
-	pubspecLock = lib.importJSON ./pubspec.lock.json;
-
-	gitHashes = {
-		widgets = "sha256-5qEPc6qiF+kCbjLrufkmYvMa9wknNNgmFNSCWljPKzo=";
-	};
+	pubspecLock = ./pubspec.lock;
+	depsHash = "sha256-GzQ7bLwbdl41uNc7TGGlLkAaWCLyKW5UU/mP0HAB3c8=";
 
 	desktopItems = [
 		(makeDesktopItem {
@@ -32,15 +28,6 @@ flutter332.buildFlutterApplication {
 	nativeBuildInputs = [
 		copyDesktopItems
 	];
-
-	patchPhase = ''
-		cp -r ${../common/linux} linux
-		chmod +w -R linux
-		substituteInPlace linux/CMakeLists.txt \
-			--replace-fail '@name@' notes
-		substituteInPlace linux/runner/my_application.cc \
-			--replace-fail '@prettyName@' Notes
-	'';
 
 	postInstall = ''
 		mkdir -p $out/share/icons/hicolor/48x48/apps
