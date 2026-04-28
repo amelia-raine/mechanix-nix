@@ -10,4 +10,5 @@ in
 	files = pkgs.callPackage ./files { inherit mechanixSrc buildApplication; };
 	music = pkgs.callPackage ./music { inherit mechanixSrc buildApplication; };
 	notes = pkgs.callPackage ./notes { inherit mechanixSrc buildApplication; };
+	camera = pkgs.callPackage ./camera { inherit mechanixSrc buildApplication; };
 }

@@ -93,7 +93,7 @@ lib.extendMkDerivation {
 				runHook preBuild
 
 				flutter-elinux --suppress-analytics pub get --offline --enforce-lockfile
-				flutter-elinux --suppress-analytics build elinux --target-arch ${hostArchName}
+				LDFLAGS="$NIX_LDFLAGS" flutter-elinux --suppress-analytics build elinux --target-arch ${hostArchName}
 
 				runHook postBuild
 			'';

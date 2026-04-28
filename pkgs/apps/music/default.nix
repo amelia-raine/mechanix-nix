@@ -15,14 +15,15 @@ buildApplication {
 	desktopItems = [
 		(makeDesktopItem {
 			name = "org.mechanix.music";
-			desktopName = "Mechanix Music";
+			desktopName = "Music";
 			genericName = "Mechanix Music";
 			comment = "Music app";
 			type = "Application";
 			exec = "mechanix_music -w 540 -h 620 -k -s 1";
 			icon = "mechanix_music";
 			terminal = false;
-			categories = [ "System" ];
+			noDisplay = false;
+			categories = [ "AudioVideo" ];
 		})
 	];
 

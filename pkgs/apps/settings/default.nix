@@ -10,19 +10,20 @@ buildApplication {
 	version = "0.0.3";
 	src = "${mechanixSrc}/apps/settings";
 	pubspecLock = ./pubspec.lock;
-	depsHash = "sha256-pYIxJIV0c6zMBytszIjmtt+5doAxRpGg+nz8rCi4kF0=";
+	depsHash = "sha256-VC0hZSMEKfM1rnvXSE69h7A9q3tg6vdj4rYhhnyNF4Q=";
 
 	desktopItems = [
 		(makeDesktopItem {
 			name = "org.mechanix.settings";
-			desktopName = "Mechanix Settings";
+			desktopName = "Settings";
 			genericName = "Mechanix Settings";
 			comment = "Settings app";
 			type = "Application";
 			exec = "mechanix_settings -w 540 -h 620 -k -s 1";
 			icon = "mechanix_settings";
 			terminal = false;
-			categories = [ "System" ];
+			noDisplay = false;
+			categories = [ "Settings" ];
 		})
 	];
 

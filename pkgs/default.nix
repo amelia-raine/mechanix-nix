@@ -5,8 +5,8 @@ let
 	mechanixSrc = pkgs.fetchFromGitHub {
 		owner = "mecha-org";
 		repo = "mechanix-gui";
-		rev = "209b6f58a443bda5b912618b8e34c398cdce53cf";
-		hash = "sha256-9Of+PmRlUX3pSIXknuHRmi6Sx1hfqs7yvOplpbA0qUo=";
+		rev = "661cd5f05bac200c8e9f5be42598a236057f5c70";
+		hash = "sha256-JByntJM3LF4sVeH0oUeqlUMXvNLlxYP2PbovZhFlMlg=";
 	};
 in
 rec {

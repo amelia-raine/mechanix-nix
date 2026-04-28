@@ -14,14 +14,15 @@ buildApplication {
 	desktopItems = [
 		(makeDesktopItem {
 			name = "org.mechanix.notes";
-			desktopName = "Mechanix Notes";
+			desktopName = "Notes";
 			genericName = "Mechanix Notes";
 			comment = "Notes app";
 			type = "Application";
 			exec = "mechanix_notes -w 540 -h 620 -k -s 1";
 			icon = "mechanix_notes";
 			terminal = false;
-			categories = [ "System" ];
+			noDisplay = false;
+			categories = [ "Utility" ];
 		})
 	];
 
