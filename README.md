@@ -32,7 +32,7 @@ You can do so by adding this repository to your imports in your NixOS configurat
 For example, by adding the repository as a channel:
 ```bash
 # Run as root
-nix-channel --add https://github.com/amelia-raine/mechanix-nix/archive/main.tar.gz mechanix
+nix-channel --add https://github.com/amelia-raine/mechanix-nix/archive/release.tar.gz mechanix
 nix-channel --update
 ```
 Then add `<mechanix>` to your imports:

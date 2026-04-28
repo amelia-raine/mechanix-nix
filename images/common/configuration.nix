@@ -2,7 +2,7 @@
 {
 	imports = [
 		./hardware-configuration.nix
-		(import ./mechanix.nix).module
+		<mechanix>
 	];
 
 	networking.hostName = "comet";

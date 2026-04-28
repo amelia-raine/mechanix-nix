@@ -1,10 +1,10 @@
 { pkgs, lib, config, ... }:
 let
 	commonConfig = import ../common/configuration.nix { inherit pkgs lib config; };
+	bakeChannel = import ../common/bake-channel.nix { inherit pkgs lib config; };
 	makeDiskImage = import <nixpkgs/nixos/lib/make-disk-image.nix> {
 		inherit pkgs lib config;
 		baseName = "nixos-mechanix-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}";
-		diskSize = 32768;
 		format = "qcow2-compressed";
 		contents = [
 			{
@@ -21,13 +21,9 @@ let
 				user = "root";
 				group = "root";
 			}
-			{
-				source = ../common/mechanix.nix;
-				target = "/etc/nixos/mechanix.nix";
-				mode = "644";
-				user = "root";
-				group = "root";
-			}
+		];
+		additionalPaths = [
+			bakeChannel.channelSources
 		];
 	};
 in
@@ -36,8 +32,10 @@ lib.recursiveUpdate
 	{
 		imports = [
 			./hardware-configuration.nix
-			(import ../common/mechanix.nix).module
+			../..
 		];
 
 		system.build.image = makeDiskImage;
+
+		systemd.services.mechanix-channel-init = bakeChannel.service;
 	}
