@@ -59,8 +59,19 @@ in
 				enable = true;
 				wayland.enable = true;
 			};
-			defaultSession = "jay-mechanix-session";
+			defaultSession = "phoc-session";
 			sessionPackages = [
+				(
+					(pkgs.makeDesktopItem {
+						destination = "/share/wayland-sessions";
+						name = "phoc-session";
+						desktopName = "Phoc";
+						exec = "phoc -E mechanix-launcher";
+						type = "Application";
+					}).overrideAttrs {
+						passthru.providedSessions = [ "phoc-session" ];
+					}
+				)
 				(
 					(pkgs.makeDesktopItem {
 						destination = "/share/wayland-sessions";
@@ -81,17 +92,6 @@ in
 						type = "Application";
 					}).overrideAttrs {
 						passthru.providedSessions = [ "jay-session" ];
-					}
-				)
-				(
-					(pkgs.makeDesktopItem {
-						destination = "/share/wayland-sessions";
-						name = "phoc-session";
-						desktopName = "Phoc";
-						exec = "phoc -E mechanix-launcher";
-						type = "Application";
-					}).overrideAttrs {
-						passthru.providedSessions = [ "phoc-session" ];
 					}
 				)
 			];
