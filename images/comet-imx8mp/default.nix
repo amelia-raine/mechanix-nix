@@ -5,7 +5,8 @@ let
 	makeDiskImage = import <nixpkgs/nixos/lib/make-disk-image.nix> {
 		inherit pkgs lib config;
 		baseName = "nixos-mechanix-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}";
-		format = "qcow2-compressed";
+		format = "raw";
+		partitionTableType = "efi";
 		contents = [
 			{
 				source = ../common/configuration.nix;
