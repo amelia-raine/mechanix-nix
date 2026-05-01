@@ -4,8 +4,6 @@ let
 	tomlFormat = pkgs.formats.toml {};
 	mechanix-pkgs = import ./pkgs { inherit pkgs; };
 	mechanix-gui = mechanix-pkgs.gui;
-	mechanix-apps = mechanix-pkgs.apps;
-	mechanix-phoc = mechanix-pkgs.phoc;
 	wrapJay = jay: binName:
 		pkgs.runCommandLocal binName
 			{ nativeBuildInputs = [ pkgs.makeBinaryWrapper ]; }
@@ -36,10 +34,10 @@ in
 				mechanix-gui
 				jay
 				mechanix-jay
-				mechanix-phoc
+				mechanix-pkgs.phoc
 				bemenu
 				alacritty
-			] ++ lib.attrValues mechanix-apps;
+			] ++ lib.attrValues mechanix-pkgs.apps;
 
 			etc."mxconf/profile/default_profile.toml".source = "${mechanix-gui}/share/mxconf/default_profile.toml";
 			etc."mechanix/shell/assets/settings.toml".source = tomlFormat.generate "settings.toml" config.mechanix.settings;
@@ -194,6 +192,24 @@ in
 					RestartSec = 10;
 					StandardOutput = "journal";
 					KillSignal = "SIGTERM";
+					TimeoutStopSec = 30;
+				};
+			};
+			squeekboard = {
+				enable = true;
+				description = "An on screen virtual keyboard";
+				wantedBy = [ "default.target" ];
+				path = with pkgs; [
+					which
+					squeekboard
+				];
+				serviceConfig = {
+					Type = "simple";
+					ExecStart = "${pkgs.squeekboard.src}/tools/squeekboard-restyled";
+					Restart = "on-failure";
+					RestartSec = 2;
+					StandardOutput = "journal";
+					StandardError = "journal";
 					TimeoutStopSec = 30;
 				};
 			};

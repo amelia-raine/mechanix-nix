@@ -107,8 +107,7 @@ rustPlatform.buildRustPackage {
 		mv $out/share/assets/{icons.example.toml,icons.toml}
 
 		substituteInPlace $out/share/assets/settings.toml \
-			--replace-fail assets/layouts/us.yaml $out/share/assets/layouts/us.yaml \
-			--replace-fail 'anchor = ["top", "left", "right", "bottom"]' 'anchor = ["top", "left", "right"]'
+			--replace-fail assets/layouts/us.yaml $out/share/assets/layouts/us.yaml
 
 		mkdir -p $out/etc/dbus-1/system.d
 		cp services/system/system-dbus.conf $out/etc/dbus-1/system.d
