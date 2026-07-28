@@ -4,19 +4,6 @@ let
 	tomlFormat = pkgs.formats.toml {};
 	mechanix-pkgs = import ./pkgs { inherit pkgs; };
 	mechanix-gui = mechanix-pkgs.gui;
-	wrapJay = jay: binName:
-		pkgs.runCommandLocal binName
-			{ nativeBuildInputs = [ pkgs.makeBinaryWrapper ]; }
-			''
-				mkdir -p $out/icons
-				ln -s ${pkgs.adwaita-icon-theme}/share/icons/Adwaita $out/icons/default
-				ln -s ${jay}/share $out/share
-				mkdir -p $out/bin
-				makeWrapper ${jay}/bin/${binName} $out/bin/${binName} \
-					--suffix XCURSOR_PATH : $out/icons
-			'';
-	jay = wrapJay pkgs.jay "jay";
-	mechanix-jay = wrapJay mechanix-pkgs.jay "mechanix-jay";
 in
 {
 	options = {
@@ -32,8 +19,6 @@ in
 		environment = {
 			systemPackages = with pkgs; [
 				mechanix-gui
-				jay
-				mechanix-jay
 				mechanix-pkgs.phoc
 				bemenu
 				alacritty
@@ -70,41 +55,13 @@ in
 						passthru.providedSessions = [ "phoc-session" ];
 					}
 				)
-				(
-					(pkgs.makeDesktopItem {
-						destination = "/share/wayland-sessions";
-						name = "jay-mechanix-session";
-						desktopName = "Jay Mechanix";
-						exec = "mechanix-jay run";
-						type = "Application";
-					}).overrideAttrs {
-						passthru.providedSessions = [ "jay-mechanix-session" ];
-					}
-				)
-				(
-					(pkgs.makeDesktopItem {
-						destination = "/share/wayland-sessions";
-						name = "jay-session";
-						desktopName = "Jay Default";
-						exec = "jay run";
-						type = "Application";
-					}).overrideAttrs {
-						passthru.providedSessions = [ "jay-session" ];
-					}
-				)
 			];
 		};
 
 		xdg.portal = {
 			enable = true;
 			extraPortals = [
-				jay
-				mechanix-jay
 				pkgs.xdg-desktop-portal-gtk
-			];
-			configPackages = [
-				jay
-				mechanix-jay
 			];
 		};
 
