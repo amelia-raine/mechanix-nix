@@ -16,12 +16,12 @@ Then clone this repository and navigate to its root directory.
 
 To build an image to test in a VM (I have only tested it in x86_64), run the following command:
 ```bash
-nix-build '<nixpkgs/nixos>' -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/nixos-25.11.tar.gz -I nixos-config=images/generic -I mechanix=. -A config.system.build.image
+nix-build '<nixpkgs/nixos>' -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/nixos-26.05.tar.gz -I nixos-config=images/generic -I mechanix=. -A config.system.build.image
 ```
 
 To build an image to run in a Mecha Comet (I.MX 8M Plus), run the following command:
 ```bash
-nix-build '<nixpkgs/nixos>' -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/nixos-25.11.tar.gz -I nixos-config=images/comet-imx8mp -I mechanix=. -A config.system.build.image
+nix-build '<nixpkgs/nixos>' -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/nixos-26.05.tar.gz -I nixos-config=images/comet-imx8mp -I mechanix=. -A config.system.build.image
 ```
 
 Once it's done it will print a path to the directory where the generated image is.

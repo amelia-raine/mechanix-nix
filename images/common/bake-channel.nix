@@ -40,7 +40,7 @@ in
 					${lib.optionalString config.boot.initrd.systemd.enable "--option sandbox false"}
 				mkdir -m 0700 -p /root/.nix-defexpr
 				ln -sfvT /nix/var/nix/profiles/per-user/root/channels /root/.nix-defexpr/channels
-				echo 'https://github.com/amelia-raine/mechanix-nix/archive/release.tar.gz mechanix' >> /root/.nix-channels
+				echo 'https://github.com/amelia-raine/mechanix-nix/archive/release-26.05.tar.gz mechanix' >> /root/.nix-channels
 				mkdir -m 0755 -p /var/lib/mechanix-nix
 				touch /var/lib/mechanix-nix/did-channel-init
 			fi
