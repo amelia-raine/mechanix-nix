@@ -5,16 +5,31 @@
 		<mechanix>
 	];
 
-	networking.hostName = "comet";
+	mechanix.mechanix-shell.enable = false;
+	mechanix.mechanix-apps.enable = true;
+	mechanix.phosh.enable = true;
+
+	environment.systemPackages = with pkgs; [
+		alacritty
+	];
 
 	users.users = {
-		root.initialPassword = "comet";
 		mecha = {
 			isNormalUser = true;
 			extraGroups = [ "wheel" "networkmanager" ];
 			initialPassword = "comet";
 		};
+		root = {
+			initialPassword = null;
+		};
 	};
+
+	networking.hostName = "comet";
+
+	hardware.bluetooth.enable = true;
+
+	hardware.graphics.enable = true;
+	programs.xwayland.enable = true;
 
 	services.pipewire = {
 		enable = true;
