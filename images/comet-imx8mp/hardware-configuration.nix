@@ -32,7 +32,7 @@ in
 			filter = "imx8mp-*.dtb";
 			name = "freescale/imx8mp-mecha-comet.dtb";
 		};
-		firmware = [ mechanix-pkgs.hardware.iw61x-firmware ];
+		firmware = [ mechanix-pkgs.hardware.comet-imx8mp.firmware ];
 	};
 
 	system.nixos.tags = [ "comet-imx8mp" ];

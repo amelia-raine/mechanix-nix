@@ -9,5 +9,4 @@ let
 in
 {
 	comet-imx8mp = import ./comet-imx8mp { inherit pkgs nixos-hardware; };
-	iw61x-firmware = pkgs.callPackage ./iw61x-firmware.nix {};
 }
