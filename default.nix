@@ -1,34 +1,15 @@
 { pkgs, lib, config, ... }:
 let
-	inherit (lib) mkOption;
-	tomlFormat = pkgs.formats.toml {};
 	mechanix-pkgs = import ./pkgs { inherit pkgs; };
 	mechanix-gui = mechanix-pkgs.gui;
 in
 {
-	options = {
-		mechanix = {
-			settings = mkOption {
-				type = tomlFormat.type;
-				default = {};
-			};
-		};
-	};
-
 	config = {
-		environment = {
-			systemPackages = with pkgs; [
-				mechanix-gui
-				mechanix-pkgs.phoc
-				bemenu
-				alacritty
-			] ++ lib.attrValues mechanix-pkgs.apps;
-
-			etc."mxconf/profile/default_profile.toml".source = "${mechanix-gui}/share/mxconf/default_profile.toml";
-			etc."mechanix/shell/assets/settings.toml".source = tomlFormat.generate "settings.toml" config.mechanix.settings;
-		};
-
-		services.dbus.packages = [ mechanix-gui ];
+		environment.systemPackages = with pkgs; [
+			mechanix-gui
+			mechanix-pkgs.phoc
+			alacritty
+		] ++ lib.attrValues mechanix-pkgs.apps;
 
 		networking.networkmanager.enable = true;
 
@@ -36,33 +17,11 @@ in
 
 		hardware.graphics.enable = true;
 		programs.xwayland.enable = true;
-		services.displayManager = {
+		services.xserver.desktopManager.phosh = {
 			enable = true;
-			sddm = {
-				enable = true;
-				wayland.enable = true;
-			};
-			defaultSession = "phoc-session";
-			sessionPackages = [
-				(
-					(pkgs.makeDesktopItem {
-						destination = "/share/wayland-sessions";
-						name = "phoc-session";
-						desktopName = "Phoc";
-						exec = "phoc -E mechanix-launcher";
-						type = "Application";
-					}).overrideAttrs {
-						passthru.providedSessions = [ "phoc-session" ];
-					}
-				)
-			];
-		};
-
-		xdg.portal = {
-			enable = true;
-			extraPortals = [
-				pkgs.xdg-desktop-portal-gtk
-			];
+			user = "mecha";
+			group = "users";
+			phocConfig.xwayland = "immediate";
 		};
 
 		programs.dconf = {
@@ -70,8 +29,7 @@ in
 			profiles.user.databases = [{
 				lockAll = true;
 				settings = {
-					"org/gnome/desktop/a11y/applications".screen-keyboard-enabled = true;
-					"org/gnome/desktop/interface".color-scheme = "prefer-dark";
+					"sm/puri/phosh/lockscreen".require-unlock = false;
 				};
 			}];
 		};
@@ -149,24 +107,6 @@ in
 					RestartSec = 10;
 					StandardOutput = "journal";
 					KillSignal = "SIGTERM";
-					TimeoutStopSec = 30;
-				};
-			};
-			squeekboard = {
-				enable = true;
-				description = "An on screen virtual keyboard";
-				wantedBy = [ "default.target" ];
-				path = with pkgs; [
-					which
-					squeekboard
-				];
-				serviceConfig = {
-					Type = "simple";
-					ExecStart = "${pkgs.squeekboard.src}/tools/squeekboard-restyled";
-					Restart = "on-failure";
-					RestartSec = 2;
-					StandardOutput = "journal";
-					StandardError = "journal";
 					TimeoutStopSec = 30;
 				};
 			};
