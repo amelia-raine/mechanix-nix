@@ -5,9 +5,12 @@
 		<mechanix>
 	];
 
-	mechanix.mechanix-shell.enable = false;
-	mechanix.mechanix-apps.enable = true;
-	mechanix.phosh.enable = true;
+	mechanix = {
+		mechanix-shell.enable = false;
+		mechanix-apps.enable = true;
+		phosh.enable = true;
+		user = "mecha";
+	};
 
 	environment.systemPackages = with pkgs; [
 		alacritty

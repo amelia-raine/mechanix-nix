@@ -9,6 +9,7 @@ in
 			enable = lib.mkEnableOption "the Mechanix Apps";
 		};
 	};
+
 	config = {
 		environment.systemPackages = lib.optionals cfg.enable (lib.attrValues mechanix-pkgs.apps);
 	};

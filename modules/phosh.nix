@@ -8,6 +8,7 @@ in
 			enable = lib.mkEnableOption "Phosh";
 		};
 	};
+
 	config = lib.mkIf cfg.enable {
 		networking.networkmanager = {
 			enable = true;
@@ -16,7 +17,7 @@ in
 
 		services.xserver.desktopManager.phosh = {
 			enable = true;
-			user = "mecha";
+			user = config.mechanix.user;
 			group = "users";
 			phocConfig.xwayland = "immediate";
 		};

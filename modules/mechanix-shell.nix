@@ -10,6 +10,7 @@ in
 			enable = lib.mkEnableOption "the Mechanix Shell";
 		};
 	};
+
 	config = lib.mkIf cfg.enable {
 		environment.systemPackages = [
 			mechanix-gui
@@ -34,7 +35,7 @@ in
 				};
 				initial_session = {
 					command = "phoc -E mechanix-launcher";
-					user = "mecha";
+					user = config.mechanix.user;
 				};
 			};
 		};
