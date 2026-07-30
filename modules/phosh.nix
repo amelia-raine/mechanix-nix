@@ -9,7 +9,10 @@ in
 		};
 	};
 	config = lib.mkIf cfg.enable {
-		networking.networkmanager.enable = true;
+		networking.networkmanager = {
+			enable = true;
+			wifi.powersave = lib.mkDefault true;
+		};
 
 		services.xserver.desktopManager.phosh = {
 			enable = true;

@@ -18,9 +18,12 @@ in
 
 		mechanix.mechanix-apps.enable = lib.mkDefault true;
 
-		networking.networkmanager.enable = true;
-
 		services.dbus.packages = [ mechanix-gui ];
+
+		networking.networkmanager = {
+			enable = true;
+			wifi.powersave = lib.mkDefault true;
+		};
 
 		services.greetd = {
 			enable = true;
