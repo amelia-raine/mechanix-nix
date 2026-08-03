@@ -6,6 +6,8 @@ This repository contains:
 - Nix module that configures the shell and services.
 - Nix expressions for building bootable NixOS Mechanix images.
 
+Most of my discussion with the Mecha team regarding this project is happening over at Mecha's Discord: https://discord.gg/8HFf6SB3zw
+
 ## Work in progress
 I don't have a Mecha Comet yet, so until then I can't finish and test this project.
 
