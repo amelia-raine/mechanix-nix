@@ -47,6 +47,11 @@ Then add `<mechanix>` to your imports:
 imports = [
 	<mechanix>
 ];
+
+mechanix = {
+	mechanix-shell.enable = true;
+	user = "mecha"; # Replace this with the user you wish to be logged in as
+};
 ```
 
 ## Running the Mechanix apps without Mechanix
