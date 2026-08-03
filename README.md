@@ -9,7 +9,7 @@ This repository contains:
 Most of my discussion with the Mecha team regarding this project is happening over at Mecha's Discord: https://discord.gg/8HFf6SB3zw
 
 ## Work in progress
-I don't have a Mecha Comet yet, so until then I can't finish and test this project.
+This project isn't thoroughly tested on a real Mecha Comet as I don't have one yet.
 
 ## Building bootable images
 In order to build a bootable image you will need the [Nix package manager, which you can install on any distro](https://nixos.org/download/), you don't need to use NixOS.
