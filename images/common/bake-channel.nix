@@ -1,4 +1,4 @@
-# Based on https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/installer/cd-dvd/channel.nix
+# Based on https://github.com/NixOS/nixpkgs/blob/fb266d7643d867cde267b9551e6fcf2191910e86/nixos/modules/installer/cd-dvd/channel.nix
 
 { pkgs, lib, config, ... }:
 let
