@@ -38,4 +38,6 @@ lib.recursiveUpdate
 		system.build.image = makeDiskImage;
 
 		systemd.services.mechanix-channel-init = bakeChannel.service;
+		boot.growPartition = true;
+		fileSystems."/".autoResize = true;
 	}

@@ -11,7 +11,6 @@ in
 		};
 		initrd.includeDefaultModules = false;
 		kernelPackages = pkgs.linuxPackagesFor mechanix-pkgs.hardware.comet-imx8mp.linux;
-		growPartition = true;
 	};
 
 	fileSystems = {
@@ -19,7 +18,6 @@ in
 			device = "/dev/disk/by-label/nixos";
 			fsType = "ext4";
 			options = [ "noatime" ];
-			autoResize = true;
 		};
 		"/boot" = {
 			device = "/dev/disk/by-label/ESP";
